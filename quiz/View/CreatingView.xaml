@@ -1,0 +1,88 @@
+﻿<UserControl x:Class="quiz.View.CreatingView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:quiz.View"
+      xmlns:model="clr-namespace:quiz.Model" xmlns:viewmodel="clr-namespace:quiz.ViewModel" 
+      d:DataContext="{d:DesignInstance Type=viewmodel:CreatingViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="800">
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Nazwa quizu" Margin="5px"/>
+
+            <TextBox Grid.Row="1" Grid.Column="0" x:Name="player1"
+             Margin="5px"
+             Text="{Binding NameOfQuiz}" Style="{StaticResource AnswerBox}" FontSize="30" />
+
+            <Button Grid.Column="1" Grid.Row="1" Content="Zapisz nazwę" Margin="5px" Command="{Binding SaveNameAndStart}" Style="{StaticResource ModernButton}"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Margin="5px" Text="Pytanie:"/>
+
+            <TextBox Grid.Column="0" Grid.Row="1" Text="{Binding QuestionText, Mode=TwoWay}" Margin="5px" Style="{StaticResource AnswerBox}"/>
+            <Button Grid.Column="1" Grid.Row="1"  Content="Wczytaj quiz z pliku" Margin="5px" Height="40" Command="{Binding LoadQuizCommand}" Style="{StaticResource ModernButton}"/>
+
+            <TextBlock Grid.Column="0" Grid.Row="2" Text="Odpowiedzi:" Margin="5px"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="Poprawna:" Margin="5px"/>
+
+            <TextBox Grid.Column="0" Grid.Row="3" Text="{Binding AnswerTexts[0], Mode=TwoWay}" Margin="5px" Style="{StaticResource AnswerBox}"/>
+            <TextBox Grid.Column="0" Grid.Row="4" Text="{Binding AnswerTexts[1], Mode=TwoWay}" Margin="5px" Style="{StaticResource AnswerBox}"/>
+            <TextBox Grid.Column="0" Grid.Row="5" Text="{Binding AnswerTexts[2], Mode=TwoWay}" Margin="5px" Style="{StaticResource AnswerBox}"/>
+            <TextBox Grid.Column="0" Grid.Row="6" Text="{Binding AnswerTexts[3], Mode=TwoWay}" Margin="5px" Style="{StaticResource AnswerBox}"/>
+
+            <CheckBox Grid.Row="3" Grid.Column="1" IsChecked="{Binding CorrectAnswers[0], Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <CheckBox Grid.Row="4" Grid.Column="1" IsChecked="{Binding CorrectAnswers[1], Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <CheckBox Grid.Row="5" Grid.Column="1" IsChecked="{Binding CorrectAnswers[2], Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <CheckBox Grid.Row="6" Grid.Column="1" IsChecked="{Binding CorrectAnswers[3], Mode=TwoWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Grid Grid.Row="7" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="Dalej" Content="Dalej" Grid.Row="5" Grid.Column="1" Command="{Binding NextQuestion}" Style="{StaticResource ModernButton}" Margin="2 2"/>
+                <Button x:Name="PrzejrzyjOdPoczatku" Content="Przejrzyj od początku" Grid.Row="5" Grid.Column="0" Command="{Binding PreviousQuestion}"  Style="{StaticResource ModernButton}" Margin="2 2"/>
+                <Button x:Name="UsunPytanie" Content="Usuń pytanie" Grid.Column="2"  Command="{Binding DeleteQuestionCommand}" Style="{StaticResource ModernButton}" Margin="2 2"/>
+                <Button Content="Zapisz quiz!" Grid.Column="3"  Command="{Binding SaveQuizCommand}" Style="{StaticResource ModernButton}" Margin="2 2"/>
+            </Grid>
+
+        </Grid>
+    </Grid>
+</UserControl>

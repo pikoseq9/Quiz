@@ -1,0 +1,103 @@
+﻿<UserControl x:Class="quiz.View.UsingView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:model="clr-namespace:quiz.Model"
+      xmlns:local="clr-namespace:quiz.View" 
+      xmlns:viewmodel="clr-namespace:quiz.ViewModel" 
+      d:DataContext="{d:DesignInstance Type=viewmodel:UsingViewModel}"
+      mc:Ignorable="d" 
+      d:DesignHeight="600" d:DesignWidth="900">
+
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+
+    <Border Background="#F3F4F6" CornerRadius="12">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+            <Border Grid.Row="0" Background="White" CornerRadius="8" Padding="16,12" Margin="0,0,0,15">
+                <TextBlock Style="{StaticResource HeaderText}" FontSize="24" Text="{Binding CurrentQuiz.Name}" 
+                           HorizontalAlignment="Center"/>
+            </Border>
+
+
+            <TextBlock Grid.Row="1" Text="Pytanie" Style="{StaticResource HeaderText}" FontSize="16" Margin="5,0,0,8"/>
+
+            <Border Grid.Row="2" Background="White" CornerRadius="8" Padding="16" Margin="0,0,0,15">
+                <TextBlock Text="{Binding CurrentQuestion.Content}" FontSize="18" TextWrapping="Wrap"/>
+            </Border>
+
+            <Grid Grid.Row="3" Margin="0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Row="0" Grid.Column="0" Style="{StaticResource AnswerBox}" Margin="0,5,15,5"
+                         Text="{Binding CurrentQuestion.Answers[0].Text}" IsReadOnly="True"/>
+                <TextBox Grid.Row="1" Grid.Column="0" Style="{StaticResource AnswerBox}" Margin="0,5,15,5"
+                         Text="{Binding CurrentQuestion.Answers[1].Text}" IsReadOnly="True"/>
+                <TextBox Grid.Row="2" Grid.Column="0" Style="{StaticResource AnswerBox}" Margin="0,5,15,5"
+                         Text="{Binding CurrentQuestion.Answers[2].Text}" IsReadOnly="True"/>
+                <TextBox Grid.Row="3" Grid.Column="0" Style="{StaticResource AnswerBox}" Margin="0,5,15,5"
+                         Text="{Binding CurrentQuestion.Answers[3].Text}" IsReadOnly="True"/>
+
+                <CheckBox Grid.Row="0" Grid.Column="1" 
+                          IsChecked="{Binding CurrentQuestion.Answers[0].IsUserSelected, Mode=TwoWay}" 
+                          VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <CheckBox Grid.Row="1" Grid.Column="1" 
+                          IsChecked="{Binding CurrentQuestion.Answers[1].IsUserSelected, Mode=TwoWay}" 
+                          VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <CheckBox Grid.Row="2" Grid.Column="1" 
+                          IsChecked="{Binding CurrentQuestion.Answers[2].IsUserSelected, Mode=TwoWay}" 
+                          VerticalAlignment="Center" Margin="0,0,10,0"/>
+                <CheckBox Grid.Row="3" Grid.Column="1" 
+                          IsChecked="{Binding CurrentQuestion.Answers[3].IsUserSelected, Mode=TwoWay}" 
+                          VerticalAlignment="Center" Margin="0,0,10,0"/>
+            </Grid>
+
+            <Grid Grid.Row="4" Margin="0,15,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Background="White" CornerRadius="6" Padding="12,8" HorizontalAlignment="Left">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Pozostały czas: " FontSize="14" VerticalAlignment="Center"/>
+                        <TextBlock FontSize="16" FontWeight="Bold" Foreground="#3B82F6" VerticalAlignment="Center"
+                                   Text="{Binding TimeLeftDisplay}"/>
+                    </StackPanel>
+                </Border>
+
+                <Button x:Name="Wstecz" Grid.Column="1" Content="Wstecz" Style="{StaticResource ModernButton}" 
+                        Command="{Binding PreviousQuestion}" Margin="2 2" 
+                        Background="#6B7280"/>
+
+                <Button x:Name="Dalej" Grid.Column="2" Content="Dalej" Style="{StaticResource ModernButton}" 
+                        Command="{Binding NextQuestion}" Margin="2 2" />
+
+                <Button Grid.Column="3" Content="Zakończ" Style="{StaticResource ModernButton}" 
+                        Command="{Binding FinishQuiz}"  Margin="2 2" />
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>
